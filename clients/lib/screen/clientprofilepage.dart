@@ -41,51 +41,58 @@ class _ClientProfileState extends State<ClientProfile> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor:const Color.fromARGB(255, 183, 235, 235),
-      appBar: AppBar(
-        title: const Text('Profile', style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
-        backgroundColor: Colors.transparent,
-    
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color.fromARGB(255, 5, 5, 5)),
-          onPressed: () => Navigator.pop(context),
+ @override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            const Color(0xFFFF6F61),
+              const Color.fromARGB(255, 255, 160, 151),                       
+              const Color.fromARGB(255, 175, 238, 238),
+              const Color.fromARGB(255, 24, 141, 141), 
+            ], // Adjust colors as needed
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
       ),
-      
-      body: SingleChildScrollView(
-        child: Stack(
+      child: SingleChildScrollView(
+        child: Column(
           children: [
-            Column(
-              children: [
-                _buildHeader(),
-                const SizedBox(height: 20),
-                _buildProfileOptions(),
-                _buildLogoutButton(),
-              ],
+            AppBar(
+              title: const Text('Profile', style: TextStyle(color: Colors.black)),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.black),
+                onPressed: () => Navigator.pop(context),
+              ),
             ),
+            const SizedBox(height: 10),
+            _buildHeader(),
+            const SizedBox(height: 10),
+            _buildProfileOptions(),
+            _buildLogoutButton(),
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   Widget _buildHeader() {
     return Column (
-      children: [        
+      children: [    
         Container(
-          height: 250,
+          height: 200,
           width: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors:  [
-               const Color(0xFFFF6F61),
-              const Color.fromARGB(255, 255, 160, 151),                       
-              const Color.fromARGB(255, 175, 238, 238),
-              const Color.fromARGB(255, 24, 141, 141), 
+               Colors.transparent,
+                Colors.transparent,
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -194,7 +201,7 @@ class _ClientProfileState extends State<ClientProfile> {
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 24, 141, 141) ,
+            color: const Color.fromARGB(255, 0, 0, 0) ,
             borderRadius: BorderRadius.circular(15),
           ),
           child: Row(
