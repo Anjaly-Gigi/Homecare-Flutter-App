@@ -123,7 +123,7 @@ class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Color(0xFFF2FAFC),
       appBar: AppBar(
         title: Text(
           'Dashboard',
@@ -162,6 +162,41 @@ class _DashBoardState extends State<DashBoard> {
                       ),
                       child: Column(
                         children: [
+                          Align(
+  alignment: Alignment.topRight,
+  child: Padding(
+    padding: const EdgeInsets.only(top: 10, right: 10),
+    child: GestureDetector(
+      onTap: () {
+        supabase.auth.signOut();
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Mylogin()),
+        );
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.logout,
+            size: 30,
+            color: Color.fromARGB(255, 0, 0, 0),
+          ),
+          const SizedBox(height: 5), // Space between icon and text
+          const Text(
+            "Logout",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    ),
+  ),
+),
+
                           CircleAvatar(
                             radius: 50,
                             backgroundImage: spdetails['sp_photo'] != null
@@ -255,78 +290,22 @@ class _DashBoardState extends State<DashBoard> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Column(
-  crossAxisAlignment: CrossAxisAlignment.center,
+                   GridView.count(
+  shrinkWrap: true,
+  crossAxisCount: 2, // Two buttons per row
+  crossAxisSpacing: 16,
+  mainAxisSpacing: 16,
+  childAspectRatio: 3.5, // Adjust height proportion
   children: [
-    Wrap(
-      spacing: 20, // Horizontal space between buttons
-      runSpacing: 20, // Vertical space between button rows
-      alignment: WrapAlignment.center,
-      children: [
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: primaryColor,
-            foregroundColor: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Editpro()));
-          },
-          child: const Text("Edit Profile"),
-        ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: primaryColor,
-            foregroundColor: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => RequestView()));
-          },
-          child: const Text("View Requests"),
-        ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: primaryColor,
-            foregroundColor: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => passwordChange()));
-          },
-          child: const Text("Change Password"),
-        ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: primaryColor,
-            foregroundColor: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ComplaintPage()));
-          },
-          child: const Text("Report Complaint"),
-        ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: primaryColor,
-            foregroundColor: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ViewComplaint()));
-          },
-          child: const Text("My Complaint"),
-        ),
-         ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: primaryColor,
-            foregroundColor: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) =>Mylogin()));
-          },
-          child: const Text("Log out"),
-        ),
-      ],
-    ),
+    _buildButton(context, Icons.person, "Edit Profile", Editpro()),
+    _buildButton(context, Icons.list, "View Requests", RequestView()),
+    _buildButton(context, Icons.lock, "Change Password", passwordChange()),
+    _buildButton(context, Icons.report, "Report Complaint", ComplaintPage()),
+    _buildButton(context, Icons.feedback, "My Complaint", ViewComplaint()),
   ],
 ),
+
+
 
                   ],
                 ),
@@ -378,4 +357,33 @@ class InfoRow extends StatelessWidget {
       
     );
   }
+}
+
+Widget _buildButton(BuildContext context, IconData icon, String label, Widget page) {
+  return InkWell(
+    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => page)),
+    child: AnimatedContainer(
+      duration: Duration(milliseconds: 200),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [const Color.fromARGB(255, 146, 144, 214).withOpacity(0.9), const Color.fromARGB(255, 138, 191, 198).withOpacity(0.7)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(color: Colors.black26, blurRadius: 4, offset: Offset(2, 2)),
+        ],
+      ),
+      padding: EdgeInsets.all(14),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: Colors.black, size: 16), // White icon for contrast
+          SizedBox(width: 1),
+          Text(label, style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500)),
+        ],
+      ),
+    ),
+  );
 }

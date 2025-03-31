@@ -80,6 +80,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:  Color(0xFFF2FAFC),
       appBar: AppBar(
         title: const Text('Submit Complaint'),
         backgroundColor: const Color.fromARGB(255, 0, 36, 94),

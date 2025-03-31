@@ -98,13 +98,13 @@ class _EditproState extends State<Editpro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:Color(0xFFF2FAFC),
       appBar: AppBar(
         title: const Text(
           "Edit Account",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: const Color.fromARGB(255, 250, 141, 52),
+        backgroundColor: const Color.fromRGBO(29, 51, 74, 1),
       ),
       body: SingleChildScrollView(
         child: Padding(

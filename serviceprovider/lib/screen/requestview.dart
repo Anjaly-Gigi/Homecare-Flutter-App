@@ -237,6 +237,7 @@ void storeFCMToken(String token) async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:  Color(0xFFF2FAFC),
       appBar: AppBar(
         title: const Text('My Bookings'),
         bottom: TabBar(

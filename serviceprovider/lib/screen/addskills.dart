@@ -59,6 +59,7 @@ class _AddSkillsState extends State<AddSkills> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:  Color(0xFFF2FAFC),
       appBar: AppBar(title: const Text('Add Skills')),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
