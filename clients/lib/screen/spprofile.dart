@@ -104,7 +104,7 @@ class _ServiceProviderProfileState extends State<ServiceProviderProfile> {
     return Scaffold(
       backgroundColor:const Color.fromARGB(255, 233, 235, 252),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 0, 36, 94),
+        backgroundColor:const Color(0xFFFF6F61),
         title: Text(
           'Service Provider Details',
           style: GoogleFonts.poppins(

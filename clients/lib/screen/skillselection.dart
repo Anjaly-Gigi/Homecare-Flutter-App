@@ -95,7 +95,10 @@ class _SkillScreenState extends State<SkillScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 246, 251, 251),
       appBar: AppBar(
+        backgroundColor:  const Color(0xFFFF6F61),
+      
         title: const Text('Home Service Painters'),
         actions: [
           IconButton(

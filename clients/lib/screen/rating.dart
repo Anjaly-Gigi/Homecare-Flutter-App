@@ -77,7 +77,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Leave a Review'),
-        backgroundColor: const Color(0xFF64B5F6),
+        backgroundColor:const Color.fromARGB(255, 24, 141, 141),
         foregroundColor: Colors.white,
       ),
       body: _submitted ? _buildThankYouScreen() : _buildFeedbackForm(),
@@ -173,7 +173,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               child: ElevatedButton(
                 onPressed: _isSubmitting ? null : _submitFeedback,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF64B5F6),
+                  backgroundColor:const Color.fromARGB(255, 24, 141, 141),
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -230,7 +230,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   Navigator.of(context).pop();
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF64B5F6),
+                  backgroundColor: const Color.fromARGB(255, 24, 141, 141),
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),

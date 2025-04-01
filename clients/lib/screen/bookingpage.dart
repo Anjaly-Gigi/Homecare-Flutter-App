@@ -193,7 +193,7 @@ class _BookingState extends State<Booking> {
           ),
         ),
         centerTitle: true,
-        backgroundColor:  const Color.fromARGB(255, 24, 141, 141), 
+        backgroundColor: const Color(0xFFFF6F61), 
         elevation: 0,
         iconTheme: const IconThemeData(color: Color.fromARGB(221, 20, 17, 17)),
       ),

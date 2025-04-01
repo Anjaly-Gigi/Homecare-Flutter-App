@@ -133,7 +133,7 @@ class _MyBookingState extends State<MyBooking>
                 Center(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: const Color.fromARGB(255, 24, 141, 141),
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(
                           vertical: 14, horizontal: 24),
