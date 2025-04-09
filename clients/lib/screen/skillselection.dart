@@ -97,9 +97,9 @@ class _SkillScreenState extends State<SkillScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 246, 251, 251),
       appBar: AppBar(
-        backgroundColor:  const Color(0xFFFF6F61),
-      
-        title: const Text('Home Service Painters'),
+        backgroundColor: const Color.fromARGB(255, 24, 141, 141),
+        foregroundColor: Colors.white,  
+        title: const Text('Home Service Providers'),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
@@ -113,7 +113,7 @@ class _SkillScreenState extends State<SkillScreen> {
           children: [
             TextField(
               decoration: InputDecoration(
-                hintText: 'Search for painters...',
+                hintText: 'Search for Service providers...',
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),

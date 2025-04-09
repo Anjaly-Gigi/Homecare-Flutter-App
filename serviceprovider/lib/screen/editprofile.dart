@@ -100,9 +100,10 @@ class _EditproState extends State<Editpro> {
     return Scaffold(
       backgroundColor:Color(0xFFF2FAFC),
       appBar: AppBar(
+        foregroundColor: const Color.fromARGB(255, 255, 255, 255),
         title: const Text(
           "Edit Account",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(fontWeight: FontWeight.bold, ),
         ),
         backgroundColor: const Color.fromRGBO(29, 51, 74, 1),
       ),

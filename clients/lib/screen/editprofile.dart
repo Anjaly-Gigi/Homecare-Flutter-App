@@ -100,9 +100,10 @@ class _EditproState extends State<Editpro> {
       appBar: AppBar(
         title: const Text(
           "Edit Account",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(fontWeight: FontWeight.bold, ),
         ),
         backgroundColor:  const Color.fromARGB(255, 24, 141, 141), 
+        foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         child: Padding(

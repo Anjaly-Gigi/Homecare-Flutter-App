@@ -71,7 +71,7 @@ class _MyBookingState extends State<MyBooking>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: const Color.fromARGB(255, 222, 221, 221),
       appBar: AppBar(
         title: const Text('My Bookings'),
         bottom: TabBar(
@@ -124,10 +124,11 @@ class _MyBookingState extends State<MyBooking>
                 'Your feedback helps us improve.',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.grey,
+                  color: Color.fromARGB(255, 72, 71, 71),
                 ),
                 textAlign: TextAlign.center,
               ),
+              SizedBox(height: 20),
               if (filteredBookings.any((booking) =>
                   booking['status'] == 5 || booking['status'] == 6))
                 Center(
@@ -153,7 +154,7 @@ class _MyBookingState extends State<MyBooking>
 
   Widget _buildBookingCard(Map<String, dynamic> booking) {
   return Card(
-    color: const Color.fromARGB(255, 246, 232, 232),
+    color: const Color.fromARGB(255, 249, 250, 250),
     margin: const EdgeInsets.all(12),
     elevation: 5,
     child: Padding(
@@ -291,7 +292,7 @@ class _MyBookingState extends State<MyBooking>
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
-          Icon(icon, color: Colors.deepPurple),
+          Icon(icon, color: const Color.fromARGB(255, 230, 116, 75)),
           const SizedBox(width: 12),
           Text('$label: ', style: const TextStyle(fontWeight: FontWeight.bold)),
           Expanded(child: Text(value)),

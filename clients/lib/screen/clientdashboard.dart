@@ -85,10 +85,22 @@ class _ClientDashboardState extends State<ClientDashboard> {
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => Mylogin()));
           },
-          child: const Icon(
-            Icons.logout,
-            size: 30,
-            color: Color.fromARGB(255, 0, 0, 0),
+          child: Column(
+            children: [
+              const Icon(
+                Icons.logout,
+                size: 30,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+              Text(
+                "Logout",
+                style: GoogleFonts.pacifico(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: const Color.fromARGB(255, 0, 0, 0),
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -83,7 +83,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
       appBar: AppBar(
         title: const Text('Submit Complaint'),
         backgroundColor: const Color.fromARGB(255, 24, 141, 141), 
-        foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+        foregroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

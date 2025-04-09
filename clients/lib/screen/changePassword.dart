@@ -135,10 +135,11 @@ class _passwordChangeState extends State<passwordChange> {
       appBar: AppBar(
         title: Text("Change Password",
          style: TextStyle(
-          fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 255, 255, 255)
+          fontWeight: FontWeight.bold,
          ),
         ),
         backgroundColor:  const Color.fromARGB(255, 24, 141, 141), 
+        foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -184,7 +185,7 @@ class _passwordChangeState extends State<passwordChange> {
                   
                       _buildTextField(_passwordController, 'Old Password', Icons.password, FormValidation.validateName),
                        _buildTextField(_newpasswordController, 'New Password', Icons.password, FormValidation.validateName),
-                      _buildTextField(_conpasswordController, 'New Password', Icons.password, FormValidation.validateName),
+                      _buildTextField(_conpasswordController, 'Confirm Password', Icons.password, FormValidation.validateName),
                       
 
                       const SizedBox(height: 16),

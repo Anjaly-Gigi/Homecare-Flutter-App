@@ -184,18 +184,19 @@ class _BookingState extends State<Booking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      backgroundColor:const Color.fromARGB(255, 233, 235, 252) ,
+      appBar: AppBar(      
         title: const Text(
           'Book a Service',
           style: TextStyle(
-            color:Color(0xFFFFFEFF),
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
-        backgroundColor: const Color(0xFFFF6F61), 
+        backgroundColor:const Color.fromARGB(255, 24, 141, 141), 
+         foregroundColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 0,
-        iconTheme: const IconThemeData(color: Color.fromARGB(221, 20, 17, 17)),
+        iconTheme: const IconThemeData(color: Color.fromARGB(221, 255, 255, 255)),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -220,7 +221,7 @@ class _BookingState extends State<Booking> {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.1),
+                      color: const Color.fromARGB(255, 188, 188, 188).withOpacity(0.1),
                       spreadRadius: 5,
                       blurRadius: 10,
                       offset: const Offset(0, 5),
@@ -236,12 +237,12 @@ class _BookingState extends State<Booking> {
                       style: const TextStyle(color: Colors.black87),
                       decoration: InputDecoration(
                         labelText: 'Date',
-                        labelStyle: const TextStyle(color: Colors.black54),
+                        labelStyle: const TextStyle(color:const Color.fromARGB(255, 24, 141, 141)),
                         prefixIcon: const Icon(Icons.calendar_today,
-                            color: Colors.black54),
+                            color:const Color.fromARGB(255, 24, 141, 141)),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          borderSide: const BorderSide(color: Colors.black12),
+                          borderSide: const BorderSide(color: const Color.fromARGB(255, 24, 141, 141)),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -261,12 +262,12 @@ class _BookingState extends State<Booking> {
                       style: const TextStyle(color: Colors.black87),
                       decoration: InputDecoration(
                         labelText: 'Time',
-                        labelStyle: const TextStyle(color: Colors.black54),
+                        labelStyle: const TextStyle(color:const Color.fromARGB(255, 24, 141, 141)),
                         prefixIcon: const Icon(Icons.access_time,
-                            color: Colors.black54),
+                            color: const Color.fromARGB(255, 24, 141, 141)),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          borderSide: const BorderSide(color: Colors.black12),
+                          borderSide: const BorderSide(color:const Color.fromARGB(255, 24, 141, 141)),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -285,10 +286,10 @@ class _BookingState extends State<Booking> {
                       style: const TextStyle(color: Colors.black87),
                       decoration: InputDecoration(
                         labelText: 'Job Description',
-                        labelStyle: const TextStyle(color: Colors.black54),
+                        labelStyle: const TextStyle(color: const Color.fromARGB(255, 24, 141, 141)),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          borderSide: const BorderSide(color: Colors.black12),
+                          borderSide: const BorderSide(color:const Color.fromARGB(255, 24, 141, 141)),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),

@@ -37,7 +37,7 @@ String _formatDateTime(String? dateTime) {
   if (dateTime == null) return 'N/A';
   try {
     final parsedDate = DateTime.parse(dateTime);
-    return DateFormat('dd-MM-yyyy HH:mm a').format(parsedDate);
+    return DateFormat('dd-MM-yyyy   HH:mm a').format(parsedDate);
   } catch (e) {
     return 'Invalid Date';
   }
@@ -239,7 +239,7 @@ void storeFCMToken(String token) async {
     return Scaffold(
       backgroundColor:  Color(0xFFF2FAFC),
       appBar: AppBar(
-        title: const Text('My Bookings'),
+        title: const Text('Job Requests'),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
@@ -303,7 +303,7 @@ void storeFCMToken(String token) async {
             Text(
               booking['date'] != null
                   ? 'Date: ${DateFormat('dd/MM/yy').format(DateTime.parse(booking['date']))}\nTime: ${DateFormat('HH:mm').format(DateTime.parse(booking['date']))}'
-                  : 'Date: N/A\nTime: N/A',
+                  : 'Date: N/A\n Time: N/A',
               textAlign: TextAlign.start,
             ),
             if (booking['status'] >= 3)
@@ -430,7 +430,7 @@ void storeFCMToken(String token) async {
         selectedTime.hour,
         selectedTime.minute,
       );
-      final formattedTime = DateFormat('hh:mm a').format(selectedDateTime);
+      final formattedTime = DateFormat(' hh:mm a').format(selectedDateTime);
 
       // Update the title and body with the selected time
       title = "Service Provider Accepted the Job";
@@ -485,7 +485,7 @@ void storeFCMToken(String token) async {
         .update({'starttime': startTime, 'status': 3}).match({'id': bookingId});
     final booking = bookings.firstWhere((b) => b['id'] == bookingId);
     await sendPushNotification(booking['tbl_client']['fcm_token'],
-        'Job Started', 'Your job has started at $startTime.');
+        'Job Started', 'Your job has started on ${DateFormat('dd/MM/yyyy hh:mm a').format(DateTime.parse(startTime))}.',);
     fetchData();
   }
 
@@ -497,8 +497,9 @@ void storeFCMToken(String token) async {
       'status': 5
     }).match({'id': bookingId});
     final booking = bookings.firstWhere((b) => b['id'] == bookingId);
+     String formattedEndTime = DateFormat(' hh:mm a').format(end);
     await sendPushNotification(booking['tbl_client']['fcm_token'], 'Job Ended',
-        'Your job has ended. Charge: \$$charge.');
+        'Your job has ended at $formattedEndTime. Charge: \$$charge.');
     fetchData();
   }
 

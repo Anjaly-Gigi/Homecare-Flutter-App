@@ -48,7 +48,7 @@ Widget build(BuildContext context) {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            const Color(0xFFFF6F61),
+    const Color(0xFFFF6F61),
               const Color.fromARGB(255, 255, 160, 151),                       
               const Color.fromARGB(255, 175, 238, 238),
               const Color.fromARGB(255, 24, 141, 141), 
@@ -69,10 +69,11 @@ Widget build(BuildContext context) {
                 onPressed: () => Navigator.pop(context),
               ),
             ),
+            const SizedBox(height: 10),
           
             _buildHeader(),
             _buildProfileOptions(),
-            _buildLogoutButton(),
+            // _buildLogoutButton(),
           ],
         ),
       ),
@@ -88,29 +89,34 @@ Widget build(BuildContext context) {
    Container(
     height: 100,
   width: 350,
-
+  padding: const EdgeInsets.all(16),
+  margin: const EdgeInsets.only(top: 20),
+    decoration: BoxDecoration(
+      
+      borderRadius: BorderRadius.circular(25), // Rounded edges
+      boxShadow: [
+        BoxShadow(
+          color: Colors.transparent,
+          blurRadius: 6,
+          offset: Offset(3, 3), // Soft shadow for depth
+        ),
+      ],
+    ),
     child: Row(
                 children: [  
                   SizedBox(width: 10,),
                   CircleAvatar(
                 radius: 55,
                         backgroundColor:  const Color.fromARGB(255, 24, 141, 141), 
-                        child: Text(
-                          clientData.isNotEmpty ? clientData['client_name'][0] : '?',
-                          style: TextStyle(
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold,
-                            color: const Color.fromARGB(255, 255, 255, 255),
-                          ),
-                        ),
+                        child: Icon(Icons.person_2, size: 60, color: Colors.white), // Placeholder icon
                   ),
-                  const SizedBox(width: 20),
+                  const SizedBox(width: 10),
                 
                   Text(
                     clientData['client_name'] ?? 'User Name',
                     style: const TextStyle(
                       color: Color.fromARGB(255, 3, 3, 3),
-                      fontSize: 18,
+                      fontSize: 29,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -122,7 +128,7 @@ Widget build(BuildContext context) {
               ),
   ),
 const Text(
-                    "View full profile",
+                    " ",
                     style: TextStyle(color: Color.fromARGB(255, 58, 38, 38), fontSize: 14),
                   ),
       ]   
@@ -137,7 +143,7 @@ const Text(
       child: Column(
         children: [
           Container(
-            height: 190,
+            height: 230,
   width: 350,
   decoration: BoxDecoration(
     color:  const Color.fromARGB(255, 255, 242, 241),
@@ -152,9 +158,25 @@ const Text(
     ),
             child: Column(
               children: [
+                Text(
+                  "My Profile", 
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(255, 24, 141, 141),
+                  ),
+                ),
+                Divider(
+                  color: const Color.fromARGB(255, 24, 141, 141),
+                  thickness: 2,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+                const SizedBox(height: 10),
+          
                 
                                 _buildDetailRow(Icons.email, 'Email', clientData['client_email'] ?? 'No Email'),
-                                _buildDetailRow(Icons.location_on, 'Address', clientData['client_address'] ?? 'No Address'),
+                                _buildDetailRow(Icons.home, 'Address', clientData['client-address'] ?? 'No Address'),
                                 _buildDetailRow(Icons.phone, 'Contact', clientData['client_contact'].toString() ?? 'No Contact'),
                                 _buildDetailRow(Icons.place, 'Place', clientData['tbl_place']?['place_name'] ?? 'No Place'),
               ]
@@ -209,33 +231,33 @@ const Text(
     );
   }
 
-  Widget _buildLogoutButton() {
-    return Padding(
-      padding: const EdgeInsets.all(18),
-      child: GestureDetector(
-        onTap: () async {
-          await Supabase.instance.client.auth.signOut();
-          Navigator.pop(context);
-        },
-        child: Container(
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            color:const Color(0xFFFF6F61) ,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.back_hand_outlined, color:const Color.fromARGB(255, 24, 141, 141)),
-              SizedBox(width: 8),
-              Text("Back to Dashboard", style: TextStyle(color: Color.fromARGB(255, 255, 255, 255), fontSize: 16)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   Widget _buildLogoutButton() {
+//     return Padding(
+//       padding: const EdgeInsets.all(18),
+//       child: GestureDetector(
+//         onTap: () async {
+//           await Supabase.instance.client.auth.signOut();
+//           Navigator.pop(context);
+//         },
+//         child: Container(
+//           padding: const EdgeInsets.all(18),
+//           decoration: BoxDecoration(
+//             color:const Color(0xFFFF6F61) ,
+//             borderRadius: BorderRadius.circular(15),
+//           ),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: const [
+//               Icon(Icons.back_hand_outlined, color:const Color.fromARGB(255, 24, 141, 141)),
+//               SizedBox(width: 8),
+//               Text("Back to Dashboard", style: TextStyle(color: const Color.fromARGB(255, 24, 141, 141), fontSize: 16)),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
  Widget _buildDetailRow(IconData icon, String label, String value) {
     return Padding(
@@ -256,4 +278,4 @@ const Text(
       ),
     );
   }
-
+}

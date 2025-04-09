@@ -89,12 +89,12 @@ class _AddSkillsState extends State<AddSkills> {
                               ),
                             ),
                             selected: isSelected,
-                            selectedColor: Colors.blueAccent,
+                            selectedColor: const Color.fromARGB(255, 0, 128, 128),
                             backgroundColor: Colors.grey.shade300,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                               side: BorderSide(
-                                color: isSelected ? Colors.blueAccent : Colors.grey.shade400,
+                                color: isSelected ? const Color.fromARGB(255, 0, 128, 128): Colors.grey.shade400,
                                 width: 2,
                               ),
                             ),
@@ -111,7 +111,7 @@ class _AddSkillsState extends State<AddSkills> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
-                        backgroundColor: selectedSkills.isNotEmpty ? Colors.blue : Colors.grey,
+                        backgroundColor: selectedSkills.isNotEmpty ? const Color.fromARGB(255, 0, 128, 128): Colors.grey,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
                       onPressed: selectedSkills.isEmpty ? null : addSkill,

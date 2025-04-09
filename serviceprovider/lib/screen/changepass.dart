@@ -135,10 +135,11 @@ class _passwordChangeState extends State<passwordChange> {
       appBar: AppBar(
         title: Text("Change Password",
          style: TextStyle(
-          fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 255, 255, 255)
+          fontWeight: FontWeight.bold, 
          ),
         ),
-        backgroundColor: const Color.fromARGB(255, 250, 141, 52),
+        backgroundColor: const Color.fromRGBO(29, 51, 74, 1),
+        foregroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       body: SingleChildScrollView(
         child: Padding(

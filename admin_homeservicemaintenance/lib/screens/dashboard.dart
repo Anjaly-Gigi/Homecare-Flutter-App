@@ -305,7 +305,7 @@ Widget _buildStatusList() {
         return PieChartSectionData(
           color: skillColors.containsKey(skillId) ? skillColors[skillId]! : Colors.purple, // Default color
           value: count,
-          title: '${skillNames[skillId] ?? 'Unknown'}\n(${entry.value})',
+          title: '${skillNames[skillId] ?? 'Plumber'}\n(${entry.value})',
           radius: 50,
           titleStyle: TextStyle(
             fontSize: 12,

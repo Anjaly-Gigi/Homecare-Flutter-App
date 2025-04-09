@@ -104,11 +104,12 @@ class _ServiceProviderProfileState extends State<ServiceProviderProfile> {
     return Scaffold(
       backgroundColor:const Color.fromARGB(255, 233, 235, 252),
       appBar: AppBar(
-        backgroundColor:const Color(0xFFFF6F61),
+        backgroundColor:const Color.fromARGB(255, 24, 141, 141),
+        foregroundColor: Colors.white,
         title: Text(
           'Service Provider Details',
           style: GoogleFonts.poppins(
-            textStyle: const TextStyle(color:Colors.white,fontWeight: FontWeight.bold),
+            textStyle: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -154,14 +155,21 @@ class _ServiceProviderProfileState extends State<ServiceProviderProfile> {
                         ),
                         const SizedBox(height: 10),
                         Text(
+                          spData['sp_address'] ?? 'Address not available',
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(fontSize: 16),
+                          ),),
+                           const SizedBox(height: 10),
+                        Text(
                           spData['sp_email'] ?? 'Email not available',
                           style: GoogleFonts.poppins(
                             textStyle: const TextStyle(fontSize: 16),
                           ),
+
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          spData['sp_phone'] ?? 'Phone not available',
+                          spData['sp_contact'] ?? 'Phone not available',
                           style: GoogleFonts.poppins(
                             textStyle: const TextStyle(fontSize: 16),
                           ),

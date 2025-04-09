@@ -125,17 +125,19 @@ class _DashBoardState extends State<DashBoard> {
     return Scaffold(
       backgroundColor: Color(0xFFF2FAFC),
       appBar: AppBar(
+        
         title: Text(
           'Dashboard',
           style: GoogleFonts.poppins(
             textStyle: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              // color: Colors.white,
             ),
           ),
         ),
         centerTitle: true,
         backgroundColor: const Color.fromRGBO(29, 51, 74, 1),
+        foregroundColor: Colors.white,
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -165,7 +167,7 @@ class _DashBoardState extends State<DashBoard> {
                           Align(
   alignment: Alignment.topRight,
   child: Padding(
-    padding: const EdgeInsets.only(top: 10, right: 10),
+    padding: const EdgeInsets.only(top: 10, right: 3),
     child: GestureDetector(
       onTap: () {
         supabase.auth.signOut();
@@ -182,7 +184,7 @@ class _DashBoardState extends State<DashBoard> {
             size: 30,
             color: Color.fromARGB(255, 0, 0, 0),
           ),
-          const SizedBox(height: 5), // Space between icon and text
+          const SizedBox(height: 2), // Space between icon and text
           const Text(
             "Logout",
             style: TextStyle(
@@ -197,20 +199,24 @@ class _DashBoardState extends State<DashBoard> {
   ),
 ),
 
-                          CircleAvatar(
-                            radius: 50,
-                            backgroundImage: spdetails['sp_photo'] != null
-                                ? NetworkImage(spdetails['sp_photo'])
-                                : null,
-                            backgroundColor: primaryColor,
-                            child: spdetails['sp_photo'] == null
-                                ? const Icon(
-                                    Icons.person,
-                                    size: 50,
-                                    color: Colors.white,
-                                  )
-                                : null,
-                          ),
+                         
+                              CircleAvatar(
+                                radius: 50,
+                                backgroundImage: spdetails['sp_photo'] != null
+                                    ? NetworkImage(spdetails['sp_photo'])
+                                    : null,
+                                backgroundColor: primaryColor,
+                                child: spdetails['sp_photo'] == null
+                                    ? const Icon(
+                                        Icons.person,
+                                        size: 50,
+                                        color: Colors.white,
+                                      )
+                                    : null,
+                              ),
+                              
+                            
+                    
                           const SizedBox(height: 10),
                           Text(
                             'Welcome, ${spdetails['sp_name'] ?? "Service Provider"}!',
@@ -255,14 +261,49 @@ class _DashBoardState extends State<DashBoard> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "My Account",
-                            style: GoogleFonts.poppins(
-                              textStyle: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                           
+                          Row(
+                            children: [
+                              Text(
+                                "My Account",
+                                style: GoogleFonts.poppins(
+                                  textStyle: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
-                            ),
+                              SizedBox(width: 180),
+                              GestureDetector(
+                                onTap: () {
+                                  // Navigate to the Edit Profile page
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) =>  Editpro()),
+                                  );
+                                },
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(
+                                      Icons.edit,
+                                      size: 30,
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                    ),
+                                    const SizedBox(height: 5), // Space between icon and text
+                                    const Text(
+                                      "Edit",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                            ],
                           ),
                           const Divider(
                             color: Colors.deepOrange,
@@ -297,7 +338,7 @@ class _DashBoardState extends State<DashBoard> {
   mainAxisSpacing: 16,
   childAspectRatio: 3.5, // Adjust height proportion
   children: [
-    _buildButton(context, Icons.person, "Edit Profile", Editpro()),
+   
     _buildButton(context, Icons.list, "View Requests", RequestView()),
     _buildButton(context, Icons.lock, "Change Password", passwordChange()),
     _buildButton(context, Icons.report, "Report Complaint", ComplaintPage()),

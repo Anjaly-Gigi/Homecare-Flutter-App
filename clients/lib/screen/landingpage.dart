@@ -10,7 +10,7 @@ class Mylanding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 175, 140, 202),
+      backgroundColor: const Color.fromARGB(255, 153, 121, 177),
       //  const Color.fromARGB(255, 255, 236, 183),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

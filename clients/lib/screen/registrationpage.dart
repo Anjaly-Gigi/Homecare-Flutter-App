@@ -147,21 +147,6 @@ class _MyregisterState extends State<Myregister> {
                       ),
                       const SizedBox(height: 20),
 
-                      Center(
-                        child: GestureDetector(
-                          onTap: pickImage,
-                          child: CircleAvatar(
-                            radius: 50,
-                            backgroundColor: Colors.grey[300],
-                            backgroundImage: _image != null ? FileImage(_image!) : null,
-                            child: _image == null
-                                ? const Icon(Icons.camera_alt, size: 40, color: Colors.grey)
-                                : null,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-
                       _buildTextField(_nameController, 'Name', Icons.person, FormValidation.validateName),
                       _buildTextField(_addressController, 'Address', Icons.home, FormValidation.validateAddress),
                       _buildTextField(_emailController, 'Email', Icons.email, FormValidation.validateEmail),
