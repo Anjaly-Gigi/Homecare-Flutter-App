@@ -62,7 +62,7 @@ class _passwordChangeState extends State<passwordChange> {
      
       if (response != null) {
         setState(() {
-         _newpasswordController.text = response['client_password'];
+        //  _newpasswordController.text = response['client_password'];
           
         });
       } else {

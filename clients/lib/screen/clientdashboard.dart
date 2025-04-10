@@ -1,9 +1,11 @@
 import 'package:clients/main.dart';
 import 'package:clients/screen/clientprofilepage.dart';
 import 'package:clients/screen/loginpage.dart';
+import 'package:clients/screen/notification.dart';
 import 'package:clients/screen/skillselection.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ClientDashboard extends StatefulWidget {
   const ClientDashboard({super.key});
@@ -16,11 +18,13 @@ class _ClientDashboardState extends State<ClientDashboard> {
   bool isLoading = true;
   List<Map<String, dynamic>> skillList = [];
   String name = "";
+  int unreadCount = 0; // Track unread notification count
 
   @override
   void initState() {
     fetchSkills();
     fetchUser();
+    fetchUnreadNotifications(); // Fetch unread count
     super.initState();
   }
 
@@ -46,11 +50,30 @@ class _ClientDashboardState extends State<ClientDashboard> {
           .single();
       setState(() => name = response['client_name']);
     } catch (e) {
-      print("Error Fetcing User: $e");
+      print("Error Fetching User: $e");
     }
   }
 
+  Future<void> fetchUnreadNotifications() async {
+    try {
+      final userId = supabase.auth.currentUser?.id;
+      final response = await supabase
+          .from('tbl_notification')
+          .select('is_read')
+          .eq('client_id', userId ?? '')
+          .eq('reciever', 'Client')
+          .eq('is_read', false);
 
+        print("Unread Notifications: $response");
+
+      setState(() {
+        unreadCount = response.length; // Count of unread notifications
+      });
+    } catch (e) {
+      print("Error fetching unread notifications: $e");
+      setState(() => unreadCount = 0);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,51 +83,98 @@ class _ClientDashboardState extends State<ClientDashboard> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-               const Color(0xFFFF6F61),
-              const Color.fromARGB(255, 255, 160, 151),                       
+              const Color(0xFFFF6F61),
+              const Color.fromARGB(255, 255, 160, 151),
               const Color.fromARGB(255, 175, 238, 238),
-              const Color.fromARGB(255, 24, 141, 141), 
+              const Color.fromARGB(255, 24, 141, 141),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
-        
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Align(
-      alignment: Alignment.topRight,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 50, right: 20),
-        child: GestureDetector(
-          onTap: () {
-            supabase.auth.signOut();
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Mylogin()));
-          },
-          child: Column(
-            children: [
-              const Icon(
-                Icons.logout,
-                size: 30,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
-              Text(
-                "Logout",
-                style: GoogleFonts.pacifico(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 0, 0, 0),
+              // Top-right corner with Notification and Logout
+              Padding(
+                padding: const EdgeInsets.only(top: 50.0, right: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // Notification Icon with Badge
+                    Stack(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.notifications, size: 30),
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const NotificationPage(),
+                              ),
+                            ).then((_) {
+                              // Refresh unread count after returning
+                              fetchUnreadNotifications();
+                            });
+                          },
+                        ),
+                        if (unreadCount > 0) // Show badge only if there are unread notifications
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              constraints: const BoxConstraints(
+                                minWidth: 16,
+                                minHeight: 16,
+                              ),
+                              child: Text(
+                                unreadCount.toString(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                    const SizedBox(width: 10), // Spacing between icons
+                    // Logout Button
+                    GestureDetector(
+                      onTap: () {
+                        _showLogoutConfirmationDialog(context); // Show confirmation dialog
+                      },
+                      child: Column(
+                        children: [
+                          const Icon(
+                            Icons.logout,
+                            size: 30,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          ),
+                          Text(
+                            "Logout",
+                            style: GoogleFonts.pacifico(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    ),
               Center(
                 child: Text(
                   "HomeCare",
@@ -115,8 +185,6 @@ class _ClientDashboardState extends State<ClientDashboard> {
                   ),
                 ),
               ),
-             
-       
               const SizedBox(height: 35),
               Container(
                 padding: const EdgeInsets.all(16.0),
@@ -134,21 +202,26 @@ class _ClientDashboardState extends State<ClientDashboard> {
                 child: Row(
                   children: [
                     GestureDetector(
-                      onTap: (){
-                        Navigator.push(context,MaterialPageRoute(builder: (context) => ClientProfile()));
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ClientProfile(),
+                          ),
+                        );
                       },
-                    child:CircleAvatar(
-                      radius: 30,
-                      backgroundColor: const Color.fromARGB(255, 24, 141, 141), 
-                      child: Text(
-                        name.isNotEmpty ? name[0].toUpperCase() : '?',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                      child: CircleAvatar(
+                        radius: 30,
+                        backgroundColor: const Color.fromARGB(255, 24, 141, 141),
+                        child: Text(
+                          name.isNotEmpty ? name[0].toUpperCase() : '?',
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
                     ),
                     const SizedBox(width: 15),
                     Expanded(
@@ -168,26 +241,6 @@ class _ClientDashboardState extends State<ClientDashboard> {
                   ],
                 ),
               ),
-              // const SizedBox(height: 20),
-              // Center(
-              //   child: ElevatedButton(
-              //     onPressed: () {
-              //       Navigator.push(context, MaterialPageRoute(builder: (context) => Nearestsp()));
-                    
-              //     },
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: const Color.fromARGB(255, 24, 141, 141), 
-              //       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(8),
-              //       ),
-              //     ),
-              //     child: const Text(
-              //       'Search for Nearest Service Provider',
-              //       style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 255, 255, 255)),
-              //     ),
-              //   ),
-              // ),
               const SizedBox(height: 20),
               const Text("Choose a Skill",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -215,11 +268,42 @@ class _ClientDashboardState extends State<ClientDashboard> {
                       ),
               ),
               const SizedBox(height: 20),
-             
             ],
           ),
         ),
       ),
+    );
+  }
+
+  // Logout Confirmation Dialog
+  void _showLogoutConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Logout'),
+          content: const Text('Are you sure you want to logout?'),
+          actions: [
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+            TextButton(
+              child: const Text('Logout'),
+              onPressed: () async {
+                await supabase.auth.signOut();
+                Navigator.of(context).pop(); // Close the dialog
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Mylogin()),
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -229,13 +313,18 @@ class SkillCard extends StatelessWidget {
   final String image;
   final int id;
 
-  const SkillCard({super.key, required this.skill, required this.image, required this.id});
+  const SkillCard(
+      {super.key, required this.skill, required this.image, required this.id});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SkillScreen(skillId: id,))),
+          context,
+          MaterialPageRoute(
+              builder: (context) => SkillScreen(
+                    skillId: id,
+                  ))),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

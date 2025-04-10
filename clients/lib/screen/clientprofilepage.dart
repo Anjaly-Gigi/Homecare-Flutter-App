@@ -48,10 +48,11 @@ Widget build(BuildContext context) {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-    const Color(0xFFFF6F61),
-              const Color.fromARGB(255, 255, 160, 151),                       
-              const Color.fromARGB(255, 175, 238, 238),
-              const Color.fromARGB(255, 24, 141, 141), 
+   
+            Color.fromARGB(255, 244, 252, 252), 
+            Color.fromARGB(255, 244, 252, 252),                      
+             
+             
             ], // Adjust colors as needed
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -146,7 +147,7 @@ const Text(
             height: 230,
   width: 350,
   decoration: BoxDecoration(
-    color:  const Color.fromARGB(255, 255, 242, 241),
+    color:  const Color.fromARGB(255, 255, 255, 255),
     borderRadius: BorderRadius.circular(25), // Rounded edges
     boxShadow: [
       BoxShadow(
@@ -213,7 +214,7 @@ const Text(
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 255, 242, 241), 
+            color: const Color.fromARGB(255, 255, 238, 236), 
             borderRadius: BorderRadius.circular(15),
           ),
           child: Row(

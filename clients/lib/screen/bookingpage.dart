@@ -80,16 +80,41 @@ class _BookingState extends State<Booking> {
   }
 
   Future<void> _pickDate() async {
+    // Fetch unavailable dates for the service provider
+    List<DateTime> unavailableDates = await _getUnavailableDates();
+
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
+      selectableDayPredicate: (DateTime date) {
+        // Disable dates that are in the unavailableDates list
+        return !unavailableDates.contains(date);
+      },
     );
+
     if (pickedDate != null) {
       setState(() {
         date.text = intl.DateFormat('dd-MM-yyyy').format(pickedDate);
       });
+    }
+  }
+
+  Future<List<DateTime>> _getUnavailableDates() async {
+    try {
+      final response = await supabase
+          .from('tbl_request')
+          .select('fordate')
+          .eq('sp_id', widget.id);
+
+      // Parse the response to extract dates
+      return (response as List)
+          .map((entry) => DateTime.parse(entry['fordate']))
+          .toList();
+    } catch (e) {
+      print("Error fetching unavailable dates: $e");
+      return [];
     }
   }
 
@@ -172,6 +197,21 @@ class _BookingState extends State<Booking> {
 
       if (response.statusCode == 200) {
         print('FCM message sent successfully');
+        // 🔽 Insert into tbl_notification
+        await supabase.from('tbl_notification').insert({
+          'sp_id': widget.id, // this is a UUID
+          'client_id': supabase.auth.currentUser?.id,
+          'title': 'New Booking Request', // Define a default title
+          'message': 'You have a new booking for ${date.text} at ${time.text}',
+          'datetime': DateTime.now().toIso8601String(),
+          'reciever': 'SP',
+          'is_read': false,
+          // Set to null if not applicable
+        }).then((value) {
+          print('Notification inserted successfully: $value');
+        }).catchError((error) {
+          print('Error inserting notification: $error');
+        });
       } else {
         print(
             'Failed to send FCM message: ${response.statusCode} - ${response.body}');
@@ -184,8 +224,8 @@ class _BookingState extends State<Booking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:const Color.fromARGB(255, 233, 235, 252) ,
-      appBar: AppBar(      
+      backgroundColor: const Color.fromARGB(255, 233, 235, 252),
+      appBar: AppBar(
         title: const Text(
           'Book a Service',
           style: TextStyle(
@@ -193,10 +233,11 @@ class _BookingState extends State<Booking> {
           ),
         ),
         centerTitle: true,
-        backgroundColor:const Color.fromARGB(255, 24, 141, 141), 
-         foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 24, 141, 141),
+        foregroundColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 0,
-        iconTheme: const IconThemeData(color: Color.fromARGB(221, 255, 255, 255)),
+        iconTheme:
+            const IconThemeData(color: Color.fromARGB(221, 255, 255, 255)),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -207,21 +248,20 @@ class _BookingState extends State<Booking> {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-
-                 image: const DecorationImage(
-      image: AssetImage('assets/work.jpg'),
-      fit: BoxFit.contain,
-       // Ensures it covers the entire container
-         colorFilter: ColorFilter.mode(
-        Colors.black54, // Adjust color and opacity here
-        BlendMode.dstATop, // Blend mode to control opacity
-      ),
-    ),
-               
+                  image: const DecorationImage(
+                    image: AssetImage('assets/work.jpg'),
+                    fit: BoxFit.contain,
+                    // Ensures it covers the entire container
+                    colorFilter: ColorFilter.mode(
+                      Colors.black54, // Adjust color and opacity here
+                      BlendMode.dstATop, // Blend mode to control opacity
+                    ),
+                  ),
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color.fromARGB(255, 188, 188, 188).withOpacity(0.1),
+                      color: const Color.fromARGB(255, 188, 188, 188)
+                          .withOpacity(0.1),
                       spreadRadius: 5,
                       blurRadius: 10,
                       offset: const Offset(0, 5),
@@ -237,12 +277,14 @@ class _BookingState extends State<Booking> {
                       style: const TextStyle(color: Colors.black87),
                       decoration: InputDecoration(
                         labelText: 'Date',
-                        labelStyle: const TextStyle(color:const Color.fromARGB(255, 24, 141, 141)),
+                        labelStyle: const TextStyle(
+                            color: const Color.fromARGB(255, 24, 141, 141)),
                         prefixIcon: const Icon(Icons.calendar_today,
-                            color:const Color.fromARGB(255, 24, 141, 141)),
+                            color: const Color.fromARGB(255, 24, 141, 141)),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          borderSide: const BorderSide(color: const Color.fromARGB(255, 24, 141, 141)),
+                          borderSide: const BorderSide(
+                              color: const Color.fromARGB(255, 24, 141, 141)),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -262,12 +304,14 @@ class _BookingState extends State<Booking> {
                       style: const TextStyle(color: Colors.black87),
                       decoration: InputDecoration(
                         labelText: 'Time',
-                        labelStyle: const TextStyle(color:const Color.fromARGB(255, 24, 141, 141)),
+                        labelStyle: const TextStyle(
+                            color: const Color.fromARGB(255, 24, 141, 141)),
                         prefixIcon: const Icon(Icons.access_time,
                             color: const Color.fromARGB(255, 24, 141, 141)),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          borderSide: const BorderSide(color:const Color.fromARGB(255, 24, 141, 141)),
+                          borderSide: const BorderSide(
+                              color: const Color.fromARGB(255, 24, 141, 141)),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -286,10 +330,12 @@ class _BookingState extends State<Booking> {
                       style: const TextStyle(color: Colors.black87),
                       decoration: InputDecoration(
                         labelText: 'Job Description',
-                        labelStyle: const TextStyle(color: const Color.fromARGB(255, 24, 141, 141)),
+                        labelStyle: const TextStyle(
+                            color: const Color.fromARGB(255, 24, 141, 141)),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          borderSide: const BorderSide(color:const Color.fromARGB(255, 24, 141, 141)),
+                          borderSide: const BorderSide(
+                              color: const Color.fromARGB(255, 24, 141, 141)),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -313,7 +359,6 @@ class _BookingState extends State<Booking> {
                                     builder: (context) => ClientProfile()),
                               );
                             },
-                            
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
                             const Color.fromARGB(221, 219, 120, 33),
@@ -342,31 +387,32 @@ class _BookingState extends State<Booking> {
                               ),
                             ),
                     ),
-                     const SizedBox(height: 20,),  
+                    const SizedBox(
+                      height: 20,
+                    ),
                   ],
                 ),
               ),
-             Center(
-               child: const Text(
-                            'Why Choose Us?',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color:const Color.fromARGB(255, 24, 141, 141), 
-                              
-                            ),
-                          ),
-             ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          'We provide top-notch services with a focus on quality and customer satisfaction. Book now and experience the difference!',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Color.fromARGB(137, 0, 0, 0),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
+              Center(
+                child: const Text(
+                  'Why Choose Us?',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(255, 24, 141, 141),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'We provide top-notch services with a focus on quality and customer satisfaction. Book now and experience the difference!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Color.fromARGB(137, 0, 0, 0),
+                ),
+              ),
+              const SizedBox(height: 10),
             ],
           ),
         ),
