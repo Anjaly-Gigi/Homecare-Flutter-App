@@ -3,6 +3,7 @@
  <p><h4>HomeCare is a mobile application that connect the clients with skilled service provider for various home maintenance tasks like painting, plumbing, elecrtrical repairs and carpentry. 
   
 Technologies used in this project was: 
+
 -flutter as frontend  
 -Supabase as backend for authentication, database and file storage  
 -firebase cloud messaging for sending notification <h4><p>
