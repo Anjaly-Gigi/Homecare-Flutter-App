@@ -71,9 +71,32 @@ class _MyBookingState extends State<MyBooking>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 222, 221, 221),
+      backgroundColor: const Color.fromARGB(255, 240, 237, 237),
       appBar: AppBar(
-        title: const Text('My Bookings'),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+               const Color.fromARGB(255, 24, 141, 141), Color.fromARGB(255, 32, 185, 185), Color.fromARGB(255, 247, 144, 135), Color(0xFFFF6F61)
+              ],
+            ),
+          ),
+        ),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
+        foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+        title: const Text('My Bookings',style: TextStyle(
+          fontWeight: FontWeight.bold,
+        
+          fontSize: 20,
+        ),)
+        ,
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
@@ -124,13 +147,14 @@ class _MyBookingState extends State<MyBooking>
                 'Your feedback helps us improve.',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Color.fromARGB(255, 72, 71, 71),
+                  color: Color.fromARGB(255, 78, 76, 76),
                 ),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 20),
               if (filteredBookings.any((booking) =>
                   booking['status'] == 5 || booking['status'] == 6))
+                  
                 Center(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -140,10 +164,21 @@ class _MyBookingState extends State<MyBooking>
                           vertical: 14, horizontal: 24),
                     ),
                     onPressed: () {
+                         final booking = filteredBookings.firstWhere(
+                      (b) => b['status'] == 5 || b['status'] == 6
+                    );
+                    
+                    // Convert ID to integer
+                    final bookingId = booking['id'] is int 
+    ? booking['id'] 
+    : (booking['id'] as num).toInt();
+
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FeedbackPage()));
+                              builder: (context) => FeedbackPage(
+                              bookingId: bookingId, // Pass the booking ID 
+                              )));
                     },
                     child: const Text('Write a Review'),
                   ),
@@ -154,7 +189,10 @@ class _MyBookingState extends State<MyBooking>
 
   Widget _buildBookingCard(Map<String, dynamic> booking) {
   return Card(
-    color: const Color.fromARGB(255, 249, 250, 250),
+    color: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8),
+    ),
     margin: const EdgeInsets.all(12),
     elevation: 5,
     child: Padding(
@@ -187,7 +225,10 @@ class _MyBookingState extends State<MyBooking>
             ),
             const SizedBox(height: 12),
             Card(
-              color: const Color.fromARGB(255, 255, 255, 255),
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
               elevation: 3,
               margin: const EdgeInsets.symmetric(vertical: 8),
               child: Padding(

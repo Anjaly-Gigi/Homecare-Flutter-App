@@ -3,6 +3,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+
+
 class PaymentPage extends StatefulWidget {
   final int requestId; // Add requestId field
   final double amount;
@@ -18,6 +20,8 @@ class _PaymentPageState extends State<PaymentPage> {
   late Razorpay _razorpay;
  
     final supabase = Supabase.instance.client; // Initialize Supabase
+
+
 
 
   @override
@@ -40,7 +44,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
   void _openCheckout() {
     var options = {
-      'key': 'rzp_test_f4ogLwmjekt2ws',
+      'key': 'rzp_test_uRdap9XZkoyW3z', // Replace with your Razorpay key
       'amount': widget.amount*100, 
       'name': 'HomeCare',
       'description': 'Payment',
@@ -48,17 +52,18 @@ class _PaymentPageState extends State<PaymentPage> {
         'contact': '8888888888',
         'email': 'test@razorpay.com'
       },
-      'theme': {'color': '#00245E'}
+      'theme': {'color': '#00245E'},
+      'international': true,
+
     };
 
     try {
-      _razorpay.open(options);
-    } catch (e) {
-      debugPrint('Error: $e');
-    }
+    _razorpay.open(options);
+  } catch (e) {
+    debugPrint(e.toString());
   }
-
-      
+}
+    
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
   try {
@@ -67,7 +72,7 @@ class _PaymentPageState extends State<PaymentPage> {
     await supabase
         .from('tbl_request')
         .update({'status': 6})
-        .match({'id': widget.requestId.toString()}); // Convert to string if id is UUID
+        .match({'id': widget.requestId}); // Convert to string if id is UUID
 
     Fluttertoast.showToast(
       msg: 'Payment Successful! Status Updated.',
@@ -141,6 +146,8 @@ class _PaymentPageState extends State<PaymentPage> {
     );
   }
 }
+ 
+// Removed invalid WebView widget. If needed, use a proper WebView implementation.
 
 //   @override
 //   Widget build(BuildContext context) {

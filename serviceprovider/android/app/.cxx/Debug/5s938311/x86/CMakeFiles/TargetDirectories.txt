@@ -1,0 +1,2 @@
+D:/HomeServiceMaintenance/Project/serviceprovider/android/app/.cxx/Debug/5s938311/x86/CMakeFiles/edit_cache.dir
+D:/HomeServiceMaintenance/Project/serviceprovider/android/app/.cxx/Debug/5s938311/x86/CMakeFiles/rebuild_cache.dir

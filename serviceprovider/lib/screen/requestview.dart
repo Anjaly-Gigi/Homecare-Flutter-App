@@ -228,7 +228,25 @@ class _RequestViewState extends State<RequestView>
     return Scaffold(
       backgroundColor: Color(0xFFF2FAFC),
       appBar: AppBar(
-        title: const Text('Job Requests'),
+         flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color.fromARGB(255, 29, 51, 74),
+                Color.fromARGB(255, 185, 178, 200),
+                 Color.fromARGB(255, 225, 217, 243)
+               
+                
+              ],
+            ),
+          ),
+        ),
+        foregroundColor: const Color.fromARGB(255, 1, 1, 1),
+      
+        title: const Text('Job Requests'
+        ),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
@@ -275,6 +293,10 @@ class _RequestViewState extends State<RequestView>
 
   Widget _buildBookingCard(Map<String, dynamic> booking) {
     return Card(
+      color: const Color.fromARGB(255, 255, 255, 255),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       margin: const EdgeInsets.all(12),
       elevation: 5,
       child: Padding(

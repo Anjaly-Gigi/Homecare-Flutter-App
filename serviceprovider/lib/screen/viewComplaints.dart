@@ -61,8 +61,14 @@ class _ViewComplaintState extends State<ViewComplaint> {
     return Scaffold(
       backgroundColor:  Color(0xFFF2FAFC),
       appBar: AppBar(
-        title: const Text('My Complaints'),
-        backgroundColor: const Color.fromARGB(255, 0, 36, 94),
+        title: const Text('My Complaints',
+        
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: const Color.fromRGBO(29, 51, 74, 1),
         foregroundColor: Colors.white,
       ),
       body: isLoading

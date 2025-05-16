@@ -82,8 +82,11 @@ class _ComplaintPageState extends State<ComplaintPage> {
     return Scaffold(
       backgroundColor:  Color(0xFFF2FAFC),
       appBar: AppBar(
-        title: const Text('Submit Complaint'),
-        backgroundColor: const Color.fromARGB(255, 0, 36, 94),
+        title: const Text('Submit Complaint',
+         style: TextStyle(
+          fontWeight: FontWeight.bold, 
+         ),),
+        backgroundColor: const Color.fromRGBO(29, 51, 74, 1),
         foregroundColor: Colors.white,
       ),
       body: Padding(
@@ -101,9 +104,16 @@ class _ComplaintPageState extends State<ComplaintPage> {
               TextFormField(
                 controller: _titleController,
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+
+                  fillColor: Colors.white,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                   
+                  ),
                   hintText: 'Enter title',
                 ),
+
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a title';
@@ -121,7 +131,13 @@ class _ComplaintPageState extends State<ComplaintPage> {
                 controller: _contentController,
                 maxLines: 5,
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+
+                   fillColor: Colors.white,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                   
+                  ),
                   hintText: 'Enter complaint details',
                 ),
                 validator: (value) {

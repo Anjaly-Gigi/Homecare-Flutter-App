@@ -48,13 +48,39 @@ class _MyhomeState extends State<Myhome> {
       'page': ManageComplaints(),
     },
     {
-      "icon": Icons.logout,
-      "label": "Logout",
-      "action": (BuildContext context) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Mylogin()));
+  "icon": Icons.logout,
+  "label": "Logout",
+  "action": (BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Confirm Logout"),
+          content: Text("Are you sure you want to logout?"),
+          actions: [
+            TextButton(
+              child: Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+            TextButton(
+              child: Text("Logout"),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog first
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Mylogin()),
+                );
+              },
+            ),
+          ],
+        );
       },
-    },
+    );
+  },
+}
+
   ];
 
   Widget currentPage = Dashboard();

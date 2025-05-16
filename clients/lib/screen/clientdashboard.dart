@@ -22,12 +22,13 @@ class _ClientDashboardState extends State<ClientDashboard> {
 
   @override
   void initState() {
-    fetchSkills();
-    fetchUser();
+    fetchSkills();  //get the list of skills
+    fetchUser();    //get the client name
     fetchUnreadNotifications(); // Fetch unread count
     super.initState();
   }
-
+  
+  // Fetch skills from the tbl_skill and store in skillList
   Future<void> fetchSkills() async {
     setState(() => isLoading = true);
     try {

@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class FeedbackPage extends StatefulWidget {
-  // final int pid;
-  // const FeedbackPage({super.key, required this.pid});
+    final int bookingId;
 
+  const FeedbackPage({super.key, required this.bookingId});
+ 
   @override
   _FeedbackPageState createState() => _FeedbackPageState();
 }
@@ -36,24 +37,22 @@ class _FeedbackPageState extends State<FeedbackPage> {
 
   try {
     // Fetch sp_id from tbl_request
-    final response = await supabase
-        .from('tbl_request')
-        .select('sp_id')
-        .eq('client_id', supabase.auth.currentUser!.id)
-        .order('created_at', ascending: false) // Get the latest request
-        .limit(1)
-        .single();
+   final response = await supabase
+    .from('tbl_request')
+    .select('sp_id')
+    .eq('id', widget.bookingId)
+    .single();
 
-    final spId = response['sp_id'];
+final spId = response['sp_id'];
 
     // Insert feedback into tbl_review
-    await supabase.from('tbl_review').insert({
-      'review_content': _feedbackController.text,
-      'review_rating': _rating,
-      'client_id': supabase.auth.currentUser!.id,
-      'sp_id': spId,
-      'created_at': DateTime.now().toIso8601String(),
-    });
+  await supabase.from('tbl_review').insert({
+  'review_content': _feedbackController.text,
+  'review_rating': _rating,
+  'client_id': supabase.auth.currentUser!.id,
+  'sp_id': spId,
+  'created_at': DateTime.now().toIso8601String(),
+});
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("Your feedback has been submitted")),

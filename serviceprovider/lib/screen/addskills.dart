@@ -60,7 +60,10 @@ class _AddSkillsState extends State<AddSkills> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:  Color(0xFFF2FAFC),
-      appBar: AppBar(title: const Text('Add Skills')),
+      appBar: AppBar(title: const Text('Add Skills')
+      , backgroundColor: const Color.fromARGB(255, 0, 128, 128),
+      foregroundColor: Colors.white,
+      ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : Padding(
@@ -90,11 +93,11 @@ class _AddSkillsState extends State<AddSkills> {
                             ),
                             selected: isSelected,
                             selectedColor: const Color.fromARGB(255, 0, 128, 128),
-                            backgroundColor: Colors.grey.shade300,
+                            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                               side: BorderSide(
-                                color: isSelected ? const Color.fromARGB(255, 0, 128, 128): Colors.grey.shade400,
+                                color: isSelected ? const Color.fromARGB(255, 0, 0, 0): const Color.fromARGB(255, 79, 79, 79),
                                 width: 2,
                               ),
                             ),
@@ -111,7 +114,8 @@ class _AddSkillsState extends State<AddSkills> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
-                        backgroundColor: selectedSkills.isNotEmpty ? const Color.fromARGB(255, 0, 128, 128): Colors.grey,
+                        backgroundColor: selectedSkills.isNotEmpty ? const Color.fromARGB(255, 0, 128, 128): const Color.fromARGB(255, 255, 255, 255),
+                        foregroundColor: selectedSkills.isNotEmpty ? const Color.fromARGB(255, 255, 255, 255) : const Color.fromARGB(255, 172, 172, 172),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
                       onPressed: selectedSkills.isEmpty ? null : addSkill,

@@ -117,7 +117,7 @@ class _EditproState extends State<Editpro> {
             child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [const Color.fromARGB(255, 206, 231, 232),const Color.fromARGB(255, 178, 199, 200),const Color.fromARGB(255, 206, 231, 232)],
+                  colors: [const Color.fromARGB(255, 206, 214, 232),const Color.fromARGB(255, 185, 178, 200),const Color.fromARGB(255, 226, 206, 232)],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -135,7 +135,7 @@ class _EditproState extends State<Editpro> {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 0, 128, 128),
+                          color:const Color.fromRGBO(29, 51, 74, 1)
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -149,7 +149,8 @@ class _EditproState extends State<Editpro> {
 
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 0, 128, 128),
+                          backgroundColor:const Color.fromRGBO(29, 51, 74, 1),
+                          foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           shadowColor: Colors.black.withOpacity(0.3),
@@ -166,7 +167,7 @@ class _EditproState extends State<Editpro> {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(230, 255, 252, 197),
+                            color: Color.fromARGB(230, 255, 255, 255),
                           ),
                         ),
                       ),
@@ -195,7 +196,7 @@ Widget _buildTextField(
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon, color: const Color.fromARGB(255, 0, 128, 128)),
+        prefixIcon: Icon(icon, color:const Color.fromRGBO(29, 51, 74, 1)),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         filled: true,
         fillColor: Colors.white,

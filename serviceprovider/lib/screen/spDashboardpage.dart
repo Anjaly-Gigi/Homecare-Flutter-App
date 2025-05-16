@@ -139,7 +139,7 @@ class _DashBoardState extends State<DashBoard> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(width: 80),
+            const SizedBox(width: 60),
             Text(
               'Dashboard',
               style: GoogleFonts.poppins(
@@ -148,7 +148,7 @@ class _DashBoardState extends State<DashBoard> {
                 ),
               ),
             ),
-            const SizedBox(width: 60),
+            const SizedBox(width: 70),
             // Inbox with Badge
             InkWell(
               onTap: () {
@@ -167,7 +167,7 @@ class _DashBoardState extends State<DashBoard> {
                   Column(
                     children: [
                       const Icon(
-                        Icons.message,
+                        Icons.notifications,
                         color: Colors.white,
                       ),
                       Text(
