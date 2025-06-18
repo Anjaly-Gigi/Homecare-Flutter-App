@@ -7,10 +7,12 @@
  - Service Provider Application (for service professionals)  
  - Admin Dashboard (for system management)
 
- ##Project Overview
+ ## Project Overview  
+ 
 HomeCare is a modern solution for connecting homeowners with reliable service professionals. The system streamlines the process of booking home services, managing service providers, and overseeing the entire service delivery workflow.
 
- ##Technical Stack
+ ## Technical Stack  
+ 
 * Frontend: Flutter
 * Backend: Supabase
 * Authentication: Supabase Auth
